@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    
+    @RenderSection("Styles", false)
+    <style>
+        body {
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: .90em;
+        }
+    </style>
+    <script>
+        function LoadData(ReportId = null) {
+            var skillContainer = $("#skillContainer");
+            $.ajax({
+                url: "/Patients/AddNewSkills/" + ReportId ?? "",
+                type: "GET",
+                success: function (data) {
+                    skillContainer.append(data);
+                }
+            });
+        }
+        $(document).on("click", "#btnPlus", function (e) {
+            e.preventDefault();
+            LoadData();
+        });
+
+        $(document).on("click", "#deleteSkill", function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        });
+    </script>
+</head>
+<body>
+    <div class="container my-3">
+        <nav class="nav nav-pills bg-danger">
+            <a asp-action="Index" asp-controller="Home" class="nav-link active">Home</a>
+            <a asp-action="Index" asp-controller="Reports" class="nav-link text-light">Report</a>
+            <a asp-action="Index" asp-controller="Patients" class="nav-link text-light">Patient</a>
+        </nav>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="container">
+        <p class="text-center">&copy; @DateTime.Now.Year - www.isdb-bisew.org</p>
+    </footer>
+    <environment include="Development, Production">
+        <script src="~/jquery/jquery.js"></script>
+        
+        <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    </environment>
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+CREATE DATABASE PatientDB
+GO
+USE PatientDB
+GO
+CREATE TABLE Patients
+(
+	PatientId int primary key Identity not null,
+	PatientName nvarchar(100) not null,
+	DateOfBirth Date not null,
+	Phone nvarchar(20) not null,
+	Image nvarchar(max),
+	Emergency bit 
+)
+GO
+CREATE TABLE Reports
+(
+	ReportId int primary key Identity not null,
+	ReportName nvarchar(50) not null
+)
+GO
+CREATE TABLE PatientReports
+(
+	PatientReportId int primary key Identity not null,
+	ReportId int references Reports (ReportId) not null,
+	PatientId int references Patients (PatientId) not null,
+)
+GO
+
+
+//PatientVM View Model
+
+
+public int PatientId { get; set; }
+[Required, StringLength(50), Display(Name = "Patient Name")]
+public string PatientName { get; set; } = default!;
+[Required, Display(Name = "Date Of Birth"), Column(TypeName = "date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+public DateOnly DateOfBirth { get; set; } = default!;
+public string Phone { get; set; } = default!;
+public string? Image { get; set; }
+[Display(Name = "Image")]
+public IFormFile? ImagePath { get; set; }
+public bool Emergency { get; set; }
+public List<int> ReportList { get; set; } = new List<int>();

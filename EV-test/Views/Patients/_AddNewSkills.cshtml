@@ -1,0 +1,9 @@
+﻿@model EV_test.Models.Report
+<div class="d-flex justify-content-between">
+    <div class="col-10 mb-2">
+        @Html.DropDownListFor(x => x.ReportId, ViewBag.skill as SelectList, "----Select----", new { @class = "form-select form-select-sm" })
+    </div>
+    <div class="col-2">
+        <a id="deleteSkill" class="btn btn-danger btn-sm ms-2">x</a>
+    </div>
+</div>

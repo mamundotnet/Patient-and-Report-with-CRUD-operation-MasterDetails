@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EV_test.Models.Patient>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <h3>Patient List</h3>
+    <div class="col">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary btn-sm mb-2" asp-action="Create" asp-controller="Patients">Add New Patient</a>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="card mb-4 bg-info">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <img src="@item.Image" width="60" height="60" />
+                        <b>Name :</b> @Html.DisplayFor(x => item.PatientName)&nbsp;| &nbsp;
+                        <b>Date of Birth :</b> @Html.DisplayFor(x => item.DateOfBirth)&nbsp;| &nbsp;
+                        <b>Phone :</b> @Html.DisplayFor(x => item.Phone)&nbsp;| &nbsp;
+                        <b>Emergency :</b> @Html.DisplayFor(x => item.Emergency)
+                    </div>
+                    <div>
+                        <a asp-action="Edit" asp-controller="Patients" class="btn btn-success" asp-route-id="@item.PatientId">Edit</a>
+                        <a asp-action="Delete" class="btn btn-danger" asp-controller="Patients" asp-route-id="@item.PatientId">Delete</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr class="fw-bold">
+                                <th>Report Id</th>
+                                <th>Reports</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in item.PatientReports)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(x => i.ReportId)</td>
+                                    <td>@Html.DisplayFor(x => i.Report.ReportName)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>

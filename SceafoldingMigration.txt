@@ -1,0 +1,11 @@
+
+Scaffold-DbContext "Server=DESKTOP-OARO31P;Database=PatientDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+"ConnectionStrings": {
+  "appCon": "Data Source=DESKTOP-OARO31P;Initial Catalog=PatientDB;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True"
+}
+
+
+//connection
+builder.Services.AddDbContext<PatientDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("appCon")));
